@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,11 +16,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
+        $customer = Customer::create([
+            'name' => 'Test Customer',
+            'surname' => 'Test Surname',
             'email' => 'test@example.com',
+            'phone' => '+90 555 555 55 55',
+            'password' => bcrypt('password')
         ]);
+
+        $customer->addresses()->create([
+            'address' => 'Test Address',
+            'city' => 'Istanbul',
+            'country' => 'Türkiye',
+            'zip_code' => '12345',
+        ]);
+
+        $this->command->info('Customer created with email: ' . $customer->email);
     }
 }
