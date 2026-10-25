@@ -142,24 +142,32 @@ class PaytrGateway implements PaymentInterface
         }
 
         $html = $response->body();
-        $htmlToJson = json_decode($html, true);
-
-        if($htmlToJson['status'] != 'success'){
-            Log::warning('PayTR payment page request failed', [
-                'referenceNo' => $payment->referenceNo,
-                'status' => $htmlToJson['status'],
-                'reason' => $htmlToJson['reason'],
-            ]);
-
-            return PaymentPayResultDto::failed(
-                message: 'PayTR payment page request failed. Reason: '.$htmlToJson['reason'],
-                referenceNo: $payment->referenceNo,
-            );
-        }
 
         if (trim($html) === '') {
             return PaymentPayResultDto::failed(
                 message: 'PayTR returned an empty payment page.',
+                referenceNo: $payment->referenceNo,
+            );
+        }
+
+        $responsePayload = $response->json();
+        $responseStatus = is_array($responsePayload)
+            ? ($responsePayload['status'] ?? null)
+            : null;
+
+        if (is_string($responseStatus) && $responseStatus !== 'success') {
+            $reason = $responsePayload['reason'] ?? null;
+
+            Log::warning('PayTR payment page request failed', [
+                'referenceNo' => $payment->referenceNo,
+                'status' => $responseStatus,
+                'reason' => $reason,
+            ]);
+
+            return PaymentPayResultDto::failed(
+                message: is_string($reason) && $reason !== ''
+                    ? "PayTR payment page request failed. Reason: {$reason}"
+                    : 'PayTR payment page request failed.',
                 referenceNo: $payment->referenceNo,
             );
         }

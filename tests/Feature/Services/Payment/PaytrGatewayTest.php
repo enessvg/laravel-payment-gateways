@@ -151,6 +151,28 @@ it('normalizes an unsuccessful PayTR payment-page response', function () {
     Http::assertSentCount(1);
 });
 
+it('maps a successful HTTP response containing a PayTR failure payload', function () {
+    config(['payment.gateways.paytr.transport' => 'server_html']);
+    Http::preventStrayRequests();
+    Http::fake([
+        'https://www.paytr.test/odeme' => Http::response([
+            'status' => 'failed',
+            'reason' => 'Card was declined.',
+        ]),
+    ]);
+
+    $result = app(PaytrGateway::class)->pay(paytrPaymentDto(withCard: true));
+
+    expect($result->toArray())->toBe([
+        'success' => false,
+        'message' => 'PayTR payment page request failed. Reason: Card was declined.',
+        'referenceNo' => 'SIP100',
+        'transactionId' => null,
+        'clientAction' => null,
+    ]);
+    Http::assertSentCount(1);
+});
+
 it('normalizes a PayTR connection failure without retrying the payment', function () {
     config(['payment.gateways.paytr.transport' => 'server_html']);
     Http::preventStrayRequests();
