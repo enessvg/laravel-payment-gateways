@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fefe6e35e8bd87b457f1b27e3793bffc",
+    "content-hash": "43a11e2afe73bc3d9a8ac91eea4ab5c4",
     "packages": [
         {
             "name": "brick/math",
@@ -138,6 +138,56 @@
                 }
             ],
             "time": "2026-09-06T14:11:38+00:00"
+        },
+        {
+            "name": "craftgate/craftgate",
+            "version": "1.0.56",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/craftgate/craftgate-php-client.git",
+                "reference": "aabdae0960060da5c4c33c865e9a17609597f810"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/craftgate/craftgate-php-client/zipball/aabdae0960060da5c4c33c865e9a17609597f810",
+                "reference": "aabdae0960060da5c4c33c865e9a17609597f810",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0|~5.0|^8.5.52|^9.6.33"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Craftgate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Craftgate developers and contributors",
+                    "homepage": "https://github.com/craftgate/craftgate-php-client/contributors"
+                }
+            ],
+            "description": "craftgate php client",
+            "homepage": "https://craftgate.io",
+            "keywords": [
+                "craftgate",
+                "craftgate.io"
+            ],
+            "support": {
+                "issues": "https://github.com/craftgate/craftgate-php-client/issues",
+                "source": "https://github.com/craftgate/craftgate-php-client/tree/1.0.56"
+            },
+            "time": "2026-10-19T14:03:18+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -10201,5 +10251,5 @@
         "php": "^8.3"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Interfaces\PaymentInterface;
+use App\Services\Payment\CraftgateGateway;
 use App\Services\Payment\IyzicoGateway;
 use App\Services\Payment\PaynetGateway;
 use App\Services\Payment\PaytrGateway;
@@ -13,6 +14,7 @@ it('resolves the configured payment gateway', function (string $driver, string $
     'Paynet' => ['paynet', PaynetGateway::class],
     'Iyzico' => ['iyzico', IyzicoGateway::class],
     'PayTR' => ['paytr', PaytrGateway::class],
+    'Craftgate' => ['craftgate', CraftgateGateway::class],
 ]);
 
 it('rejects an unknown payment gateway', function () {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Payment\CraftgateGateway;
 use App\Services\Payment\IyzicoGateway;
 use App\Services\Payment\PaynetGateway;
 use App\Services\Payment\PaytrGateway;
@@ -39,6 +40,15 @@ return [
             'allow_non_3d' => env('PAYTR_ALLOW_NON_3D', false),
             'connect_timeout' => env('PAYTR_CONNECT_TIMEOUT', 5),
             'timeout' => env('PAYTR_TIMEOUT', 30),
+        ],
+
+        'craftgate' => [
+            'driver' => CraftgateGateway::class,
+            'api_key' => env('CRAFTGATE_API_KEY'),
+            'secret_key' => env('CRAFTGATE_SECRET_KEY'),
+            'base_url' => env('CRAFTGATE_BASE_URL', 'https://sandbox-api.craftgate.io'),
+            'return_url' => env('CRAFTGATE_RETURN_URL', 'http://localhost:9000/api/payment/callback'),
+            'callback_key' => env('CRAFTGATE_CALLBACK_KEY'),
         ],
     ],
 ];
